@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_product_retailer_s",
+  "info": {
+    "displayName": "Retailer "
+  },
+  "options": {},
+  "attributes": {
+    "retailerName": {
+      "type": "string"
+    },
+    "retailerUrl": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

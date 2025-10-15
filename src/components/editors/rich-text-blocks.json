@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_editors_rich_text_blocks",
+  "info": {
+    "displayName": "Rich Text Blocks"
+  },
+  "options": {},
+  "attributes": {
+    "richTextBlocks": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

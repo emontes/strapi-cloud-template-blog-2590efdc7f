@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sighting_multiple_urls",
+  "info": {
+    "displayName": "Multiple URLs",
+    "description": "Multiple source URLs under one sighting title"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "urls": {
+      "type": "json",
+      "description": "Array of URL objects with url and description fields"
+    }
+  }
+}

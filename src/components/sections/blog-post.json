@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_blog_posts",
+  "info": {
+    "displayName": "blogPost",
+    "icon": "layout"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "component",
+      "component": "sections.rich-text-section",
+      "repeatable": false
+    },
+    "sideBar": {
+      "type": "boolean"
+    },
+    "allowComments": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

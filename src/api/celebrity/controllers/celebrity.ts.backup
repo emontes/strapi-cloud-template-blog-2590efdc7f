@@ -1,0 +1,211 @@
+/**
+ * celebrity controller
+ */
+
+import { factories } from '@strapi/strapi'
+
+export default factories.createCoreController('api::celebrity.celebrity', ({ strapi }) => ({
+  async find(ctx) {
+    // Populate all related fields with hierarchical structure
+    ctx.query = {
+      ...ctx.query,
+      populate: {
+        profileImage: true,
+        keyDetails: true,
+        products: {
+          populate: {
+            image: true,
+            brand: {
+              populate: {
+                logo: true
+              }
+            },
+            categories: true,
+            productTypes: true,
+            sightings: true
+          }
+        },
+        sightings: {
+          populate: {
+            product: {
+              populate: {
+                image: true,
+                brand: true
+              }
+            },
+            images: true
+          },
+          sort: 'date:desc' // Show sightings in descending order
+        },
+        brandRelationships: {
+          populate: {
+            brand: {
+              populate: {
+                logo: true
+              }
+            }
+          },
+          sort: 'displayOrder:asc'
+        }
+      }
+    };
+    
+    const { data, meta } = await super.find(ctx);
+    
+    // Transform the data to match frontend expectations with hierarchical organization
+    const transformedData = data.map(celebrity => {
+      // Group products by category
+      const productsByCategory = {};
+      
+      celebrity.products?.forEach(product => {
+        product.categories?.forEach(category => {
+          if (!productsByCategory[category.name]) {
+            productsByCategory[category.name] = {
+              categoryInfo: category,
+              productTypes: {}
+            };
+          }
+          
+          // Group by product types within category
+          product.productTypes?.forEach(productType => {
+            if (!productsByCategory[category.name].productTypes[productType.name]) {
+              productsByCategory[category.name].productTypes[productType.name] = {
+                productTypeInfo: productType,
+                products: []
+              };
+            }
+            
+            // Add the product with celebrity-specific sightings
+            const productWithCelebSightings = {
+              ...product,
+              imageUrl: product.image?.url || '',
+              brandName: product.brand?.name || '',
+              brandLogo: product.brand?.logo?.url || '',
+              // Filter sightings to only show ones for this celebrity
+              celebritySightings: celebrity.sightings?.filter(sighting => 
+                sighting.product?.id === product.id
+              ) || []
+            };
+            
+            productsByCategory[category.name].productTypes[productType.name].products.push(productWithCelebSightings);
+          });
+        });
+      });
+      
+      return {
+        ...celebrity,
+        profilePictureUrl: celebrity.profileImage?.url || '',
+        productsByCategory,
+        brandRelationships: celebrity.brandRelationships?.map(relationship => ({
+          ...relationship,
+          brandName: relationship.brand?.name || '',
+          brandLogo: relationship.brand?.logo?.url || '',
+          relationshipLabel: relationship.relationshipType.charAt(0).toUpperCase() + relationship.relationshipType.slice(1)
+        })) || []
+      };
+    });
+    
+    return { data: transformedData, meta };
+  },
+
+  async findOne(ctx) {
+    // Same population structure for single celebrity
+    ctx.query = {
+      ...ctx.query,
+      populate: {
+        profileImage: true,
+        keyDetails: true,
+        products: {
+          populate: {
+            image: true,
+            brand: {
+              populate: {
+                logo: true
+              }
+            },
+            categories: true,
+            productTypes: true,
+            sightings: true
+          }
+        },
+        sightings: {
+          populate: {
+            product: {
+              populate: {
+                image: true,
+                brand: true
+              }
+            },
+            images: true
+          },
+          sort: 'date:desc'
+        },
+        brandRelationships: {
+          populate: {
+            brand: {
+              populate: {
+                logo: true
+              }
+            }
+          },
+          sort: 'displayOrder:asc'
+        }
+      }
+    };
+    
+    const { data, meta } = await super.findOne(ctx);
+    
+    // Transform single celebrity data with same hierarchical structure
+    if (data) {
+      const productsByCategory = {};
+      
+      data.products?.forEach(product => {
+        product.categories?.forEach(category => {
+          if (!productsByCategory[category.name]) {
+            productsByCategory[category.name] = {
+              categoryInfo: category,
+              productTypes: {}
+            };
+          }
+          
+          product.productTypes?.forEach(productType => {
+            if (!productsByCategory[category.name].productTypes[productType.name]) {
+              productsByCategory[category.name].productTypes[productType.name] = {
+                productTypeInfo: productType,
+                products: []
+              };
+            }
+            
+            const productWithCelebSightings = {
+              ...product,
+              imageUrl: product.image?.url || '',
+              brandName: product.brand?.name || '',
+              brandLogo: product.brand?.logo?.url || '',
+              celebritySightings: data.sightings?.filter(sighting => 
+                sighting.product?.id === product.id
+              ) || []
+            };
+            
+            productsByCategory[category.name].productTypes[productType.name].products.push(productWithCelebSightings);
+          });
+        });
+      });
+      
+      const transformedData = {
+        ...data,
+        profilePictureUrl: data.profileImage?.url || '',
+        productsByCategory,
+        brandRelationships: data.brandRelationships?.map(relationship => ({
+          ...relationship,
+          brandName: relationship.brand?.name || '',
+          brandLogo: relationship.brand?.logo?.url || '',
+          relationshipLabel: relationship.relationshipType.charAt(0).toUpperCase() + relationship.relationshipType.slice(1)
+        })) || []
+      };
+      
+      return { data: transformedData, meta };
+    }
+    
+    return { data, meta };
+  }
+}));

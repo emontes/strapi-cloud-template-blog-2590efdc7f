@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": "Product information with sightings and evidence"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "productType": {
+      "type": "string"
+    },
+    "curatorNote": {
+      "type": "blocks"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "productUrl": {
+      "type": "string"
+    },
+    "sightings": {
+      "type": "component",
+      "component": "sighting.sighting-entry",
+      "repeatable": true
+    },
+    "youtubeUrl": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
+    },
+    "trending_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::trending-product.trending-product",
+      "mappedBy": "linked_product"
+    },
+    "celebrity_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::celebrity-product.celebrity-product",
+      "mappedBy": "product"
+    }
+  }
+}

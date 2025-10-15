@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_sighting_sighting_entries",
+  "info": {
+    "displayName": "Sighting Entry",
+    "description": "A verified sighting of a product being used"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "sourceUrl": {
+      "type": "string"
+    },
+    "sourceType": {
+      "type": "enumeration",
+      "enum": [
+        "article",
+        "video",
+        "social-media",
+        "interview",
+        "photo"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "sourceName": {
+      "type": "string"
+    }
+  }
+}

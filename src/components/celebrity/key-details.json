@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_celebrity_key_details",
+  "info": {
+    "displayName": "Key Details"
+  },
+  "options": {},
+  "attributes": {
+    "dateOfBirth": {
+      "type": "date"
+    },
+    "instagramUrl": {
+      "type": "string"
+    },
+    "tiktokUrl": {
+      "type": "string"
+    },
+    "twitterUrl": {
+      "type": "string"
+    },
+    "skinType": {
+      "type": "string"
+    },
+    "skinUndertone": {
+      "type": "string"
+    },
+    "ethnicity": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

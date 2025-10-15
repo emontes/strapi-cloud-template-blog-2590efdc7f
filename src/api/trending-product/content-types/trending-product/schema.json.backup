@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trending_products",
+  "info": {
+    "singularName": "trending-product",
+    "pluralName": "trending-products",
+    "displayName": "TrendingProduct"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "productImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "linkedProduct": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product",
+      "inversedBy": "trending_product"
+    },
+    "position": {
+      "type": "integer"
+    }
+  }
+}

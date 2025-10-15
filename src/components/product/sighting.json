@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_product_sightings",
+  "info": {
+    "displayName": "Sighting"
+  },
+  "options": {},
+  "attributes": {
+    "source": {
+      "type": "string"
+    },
+    "timeline": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

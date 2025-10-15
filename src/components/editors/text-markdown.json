@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_editors_text_markdowns",
+  "info": {
+    "displayName": "Text Markdown"
+  },
+  "options": {},
+  "attributes": {
+    "textMd": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

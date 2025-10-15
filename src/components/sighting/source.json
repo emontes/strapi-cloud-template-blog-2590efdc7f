@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sighting_sources",
+  "info": {
+    "displayName": "Source"
+  },
+  "options": {},
+  "attributes": {
+    "sourceUrl": {
+      "type": "string"
+    },
+    "sourceName": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

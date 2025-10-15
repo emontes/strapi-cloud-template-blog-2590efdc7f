@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_articles_grids",
+  "info": {
+    "displayName": "Articles Grid",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "component",
+      "component": "shared.heading",
+      "repeatable": false
+    },
+    "perPage": {
+      "type": "integer",
+      "default": 4
+    },
+    "sideBar": {
+      "type": "boolean"
+    },
+    "isHome": {
+      "type": "boolean"
+    }
+    
+  },
+  "config": {}
+}

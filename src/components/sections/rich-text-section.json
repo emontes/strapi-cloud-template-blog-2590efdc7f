@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_rich_text_sections",
+  "info": {
+    "displayName": "Rich Text Section",
+    "icon": "feather"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "component",
+      "component": "shared.heading",
+      "repeatable": false
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imagePosition": {
+      "type": "enumeration",
+      "enum": [
+        "top",
+        "left",
+        "right",
+        "bottom"
+      ]
+    }
+  },
+  "config": {}
+}

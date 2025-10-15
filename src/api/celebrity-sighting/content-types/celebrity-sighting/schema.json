@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "celebrity_sightings",
+  "info": {
+    "singularName": "celebrity-sighting",
+    "pluralName": "celebrity-sightings",
+    "displayName": "Celebrity Sighting",
+    "description": "Junction table for celebrity-specific product sightings"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "celebrities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::celebrity.celebrity",
+      "inversedBy": "sightings"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "inversedBy": "celebritySightings"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "sourceUrls": {
+      "type": "json"
+    },
+    "sourceType": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "article",
+        "video",
+        "social-media",
+        "interview",
+        "photo",
+        "red-carpet",
+        "paparazzi"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "sourceName": {
+      "type": "string",
+      "required": true
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "priority": {
+      "type": "integer",
+      "default": 1
+    },
+    "Seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

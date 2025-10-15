@@ -1,0 +1,143 @@
+/**
+ * product controller
+ */
+
+import { factories } from '@strapi/strapi'
+
+export default factories.createCoreCont        celebritySightings: data.celebritySightings?.map(sighting => ({
+          ...sighting,
+          celebrityName: sighting.celebrities?.[0]?.name || '',
+          celebrityProfilePicture: sighting.celebrities?.[0]?.profileImage?.url || '',
+          sourceUrls: sighting.sourceUrls ? (() => {
+            try {
+              return JSON.parse(sighting.sourceUrls);
+            } catch (e) {
+              console.warn('Failed to parse sourceUrls JSON:', sighting.sourceUrls, e.message);
+              return [];
+            }
+          })() : [],
+          imageUrls: sighting.images?.map(img => img.url) || []
+        })) || [],'api::product.product', ({ strapi }) => ({
+  async find(ctx) {
+    // Populate all related fields with enhanced structure
+    ctx.query = {
+      ...ctx.query,
+      populate: {
+        image: true,
+        brand: {
+          populate: {
+            logo: true
+          }
+        },
+        categories: true,
+        productTypes: true,
+        celebrities: true,
+        sightings: true,
+        celebritySightings: {
+          populate: {
+            celebrity: {
+              populate: {
+                profileImage: true
+              }
+            },
+            images: true
+          },
+          sort: 'date:desc'
+        }
+      }
+    };
+    
+    const { data, meta } = await super.find(ctx);
+    
+    // Transform the data to include hierarchical and celebrity information
+    const transformedData = data.map(product => ({
+      ...product,
+      imageUrl: product.image?.url || '',
+      brandName: product.brand?.name || '',
+      brandLogo: product.brand?.logo?.url || '',
+      categoryNames: product.categories?.map(cat => cat.name) || [],
+      productTypeNames: product.productTypes?.map(type => type.name) || [],
+      hierarchicalPath: product.categories?.map(category => {
+        const relevantTypes = product.productTypes?.filter(type => 
+          // This would need to be enhanced based on actual category-productType relationships
+          true // For now include all types
+        ) || [];
+        return `${category.name} > ${relevantTypes.map(t => t.name).join(', ')}`;
+      }) || [],
+      celebrityCount: product.celebritySightings?.length || 0,
+      celebritySightings: product.celebritySightings?.map(sighting => ({
+        ...sighting,
+        celebrityName: sighting.celebrity?.name || '',
+        celebrityProfilePicture: sighting.celebrity?.profileImage?.url || '',
+        sourceUrls: sighting.sourceUrls ? JSON.parse(sighting.sourceUrls) : [],
+        imageUrls: sighting.images?.map(img => img.url) || []
+      })) || [],
+      // Legacy celebrities field for backward compatibility
+      celebrities: product.celebrities || []
+    }));
+    
+    return { data: transformedData, meta };
+  },
+
+  async findOne(ctx) {
+    // Same population structure for single product
+    ctx.query = {
+      ...ctx.query,
+      populate: {
+        image: true,
+        brand: {
+          populate: {
+            logo: true
+          }
+        },
+        categories: true,
+        productTypes: true,
+        celebrities: true,
+        sightings: true,
+        celebritySightings: {
+          populate: {
+            celebrity: {
+              populate: {
+                profileImage: true
+              }
+            },
+            images: true
+          },
+          sort: 'date:desc'
+        }
+      }
+    };
+    
+    const { data, meta } = await super.findOne(ctx);
+    
+    if (data) {
+      const transformedData = {
+        ...data,
+        imageUrl: data.image?.url || '',
+        brandName: data.brand?.name || '',
+        brandLogo: data.brand?.logo?.url || '',
+        categoryNames: data.categories?.map(cat => cat.name) || [],
+        productTypeNames: data.productTypes?.map(type => type.name) || [],
+        hierarchicalPath: data.categories?.map(category => {
+          const relevantTypes = data.productTypes?.filter(type => 
+            true // Enhanced logic would go here
+          ) || [];
+          return `${category.name} > ${relevantTypes.map(t => t.name).join(', ')}`;
+        }) || [],
+        celebrityCount: data.celebritySightings?.length || 0,
+        celebritySightings: data.celebritySightings?.map(sighting => ({
+          ...sighting,
+          celebrityName: sighting.celebrity?.name || '',
+          celebrityProfilePicture: sighting.celebrity?.profileImage?.url || '',
+          sourceUrls: sighting.sourceUrls ? JSON.parse(sighting.sourceUrls) : [],
+          imageUrls: sighting.images?.map(img => img.url) || []
+        })) || [],
+        celebrities: data.celebrities || []
+      };
+      
+      return { data: transformedData, meta };
+    }
+    
+    return { data, meta };
+  }
+}));

@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_heros_article_heroes",
+  "info": {
+    "displayName": "Article Hero"
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "bgColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "verticalText": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

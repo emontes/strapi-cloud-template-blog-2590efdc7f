@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_sections_3_images_sections",
+  "info": {
+    "displayName": "3 Images Section"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "component",
+      "component": "shared.heading",
+      "repeatable": false
+    },
+    "image1Text": {
+      "type": "blocks"
+    },
+    "image1Image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "image2Text": {
+      "type": "blocks"
+    },
+    "image2Image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "image3Text": {
+      "type": "blocks"
+    },
+    "image3Image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

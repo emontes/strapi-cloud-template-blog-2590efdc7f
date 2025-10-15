@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_shared_meta_social",
+  "info": {
+    "displayName": "Meta Social",
+    "icon": "share-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "socialNetwork": {
+      "type": "enumeration",
+      "enum": [
+        "Facebook",
+        "Twitter",
+        "LinkedIn",
+        "Instagram",
+        "Other"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

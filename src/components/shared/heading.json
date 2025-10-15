@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_shared_headings",
+  "info": {
+    "displayName": "Heading",
+    "icon": "feather",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "labelAs": {
+      "type": "enumeration",
+      "default": "h1",
+      "enum": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "p",
+        "span",
+        "div"
+      ]
+    },
+    "decorationLine": {
+      "type": "boolean"
+    },
+    "decorationLinePos": {
+      "type": "enumeration",
+      "enum": [
+        "top",
+        "bottom"
+      ]
+    },
+    "decorationLineColor": {
+      "type": "string"
+    },
+    "labelColor": {
+      "type": "string"
+    }
+  }
+}

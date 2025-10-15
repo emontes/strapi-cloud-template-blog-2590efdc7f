@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_editors_ck_editors",
+  "info": {
+    "displayName": "Ck Editor"
+  },
+  "options": {},
+  "attributes": {
+    "textCk": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

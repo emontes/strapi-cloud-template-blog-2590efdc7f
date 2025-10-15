@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "celebrity_brands",
+  "info": {
+    "singularName": "celebrity-brand",
+    "pluralName": "celebrity-brands",
+    "displayName": "Celebrity Brand Relationship",
+    "description": "Junction table for celebrity-brand relationships with type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "celebrity": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::celebrity.celebrity",
+      "inversedBy": "brandRelationships"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "celebrityRelationships"
+    },
+    "relationshipType": {
+      "type": "enumeration",
+      "enum": [
+        "owned",
+        "co-owned",
+        "endorsed",
+        "affiliated",
+        "ambassador",
+        "investor"
+      ],
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 1
+    }
+  }
+}
